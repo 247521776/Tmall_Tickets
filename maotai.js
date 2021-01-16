@@ -1,33 +1,20 @@
-
-//定时器
-var timer = null;
-
 //检测状态
-function checkElementState(path, callback, index) {
-    index = index || 0;
+function checkElementState(path, callback, index = 0) {
     var ele = document.querySelector(path);
+    var win = window;
     if (ele) {
         callback && callback();
     }
     else {
-        setTimeout(function () { 
+        setTimeout(function () {
             if (index < 6) {
                 checkElementState(path, callback, index + 1);
             }
             else {
-                window.location.href = 'https://cart.tmall.com/cart.htm';
+                win.location.href = 'https://cart.tmall.com/cart.htm';
             }
-         }, 200);
+        }, 200);
     }
-}
-
-//点击购买按钮
-function clickBuy() {
-    console.log('买！');
-
-    //票的数量  如果还不可以购买，这个地方获取会失败 
-    var amount = document.getElementsByClassName('mui-amount-increase')[0];
-    amount && amount.click();  //+1
 }
 
 //结算
@@ -107,34 +94,33 @@ function findAndSubmit() {
 function main() {
     console.log('############################开始抢购茅台############################');
 
-    var isFindMaotai = false;
-    var aList = document.getElementsByTagName('a');
-
-    for (var i = 0; i < aList.length; i++) {
-        var item = aList[i];
-        var title = item.getAttribute('data-title'); 
-        if (title && title.indexOf('飞天53度500ml') !== -1) {
-            isFindMaotai = true;
-            item.parentNode
-                .parentNode
-                .parentNode
-                .parentNode
-                .childNodes.item(1)
-                .childNodes.item(1)
-                .childNodes.item(0)
-                .childNodes.item(0)
-                .childNodes.item(0)
-                .click();
-        }
-    }
-
-    if (!isFindMaotai) {
-        setTimeout(main, 100);
-        return;
-    }
-
     var href = window.location.href;
     if (href.indexOf('cart.tmall.com') > -1) {
+        var isFindMaotai = false;
+        var aList = document.getElementsByTagName('a');
+    
+        for (var i = 0; i < aList.length; i++) {
+            var item = aList[i];
+            var title = item.getAttribute('data-title'); 
+            if (title && title.indexOf('飞天53度500ml') !== -1) {
+                isFindMaotai = true;
+                item.parentNode
+                    .parentNode
+                    .parentNode
+                    .parentNode
+                    .childNodes.item(1)
+                    .childNodes.item(1)
+                    .childNodes.item(0)
+                    .childNodes.item(0)
+                    .childNodes.item(0)
+                    .click();
+            }
+        }
+    
+        if (!isFindMaotai) {
+            setTimeout(main, 100);
+            return;
+        }
         //结算页面
         //进入时间判断
         enterTimeCheckLoop(checkOutAsync);
