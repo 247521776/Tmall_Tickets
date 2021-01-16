@@ -104,7 +104,7 @@ function main() {
             var title = item.getAttribute('data-title'); 
             if (title && title.indexOf('飞天53度500ml') !== -1) {
                 isFindMaotai = true;
-                item.parentNode
+                var checkBox = item.parentNode
                     .parentNode
                     .parentNode
                     .parentNode
@@ -112,8 +112,9 @@ function main() {
                     .childNodes.item(1)
                     .childNodes.item(0)
                     .childNodes.item(0)
-                    .childNodes.item(0)
-                    .click();
+                    .childNodes.item(0);
+
+                checkBox.click && checkBox.click();
             }
         }
     
