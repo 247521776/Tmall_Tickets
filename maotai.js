@@ -3,13 +3,21 @@
 var timer = null;
 
 //检测状态
-function checkElementState(path, callback) {
+function checkElementState(path, callback, index) {
+    index = index || 0;
     var ele = document.querySelector(path);
     if (ele) {
         callback && callback();
     }
     else {
-        setTimeout(function () { window.location.href = 'https://cart.tmall.com/cart.htm'; }, 200);
+        setTimeout(function () { 
+            if (index < 6) {
+                checkElementState(path, callback, index + 1);
+            }
+            else {
+                window.location.href = 'https://cart.tmall.com/cart.htm';
+            }
+         }, 200);
     }
 }
 
