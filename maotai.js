@@ -1,7 +1,6 @@
 
 //定时器
 var timer = null;
-var maotaiBoxId = 'J_CheckBox_2613005730631';
 
 //检测状态
 function checkElementState(path, callback) {
@@ -85,10 +84,7 @@ function enterTimeCheckLoop(callback) {
     if (diff < -900) {
         console.log('时间过了！');
     } else if (diff < 15 * 1000) {
-        setTimeout(function () { 
-            document.getElementById(maotaiBoxId).click();
-            callback && callback();
-        }, 500);
+        callback && callback();
 
         console.log('时间到了！！！');
     } else {
@@ -96,9 +92,38 @@ function enterTimeCheckLoop(callback) {
     }
 }
 
+function findAndSubmit() {
+}
+
 //主要函数
 function main() {
     console.log('############################开始抢购茅台############################');
+
+    var isFindMaotai = false;
+    var aList = document.getElementsByTagName('a');
+
+    for (var i = 0; i < aList.length; i++) {
+        var item = aList[i];
+        var title = item.getAttribute('data-title'); 
+        if (title && title.indexOf('飞天53度500ml') !== -1) {
+            isFindMaotai = true;
+            item.parentNode
+                .parentNode
+                .parentNode
+                .parentNode
+                .childNodes.item(1)
+                .childNodes.item(1)
+                .childNodes.item(0)
+                .childNodes.item(0)
+                .childNodes.item(0)
+                .click();
+        }
+    }
+
+    if (!isFindMaotai) {
+        setTimeout(main, 100);
+        return;
+    }
 
     var href = window.location.href;
     if (href.indexOf('cart.tmall.com') > -1) {
