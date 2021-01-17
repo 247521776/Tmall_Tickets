@@ -55,7 +55,7 @@ var dDate = new Date();  //10点和20点开抢
 if (dDate.getHours() < 10) {
     dDate.setHours(9, 59, 59.2);
 } else {
-    dDate.setHours(19, 59, 59.5);
+    dDate.setHours(19, 59, 59.9);
 }
 
 //dDate.setSeconds( dDate.getSeconds() + 10 );
@@ -64,7 +64,7 @@ if (dDate.getHours() < 10) {
 function enterTimeCheckLoop(callback) {
     var date = new Date();
 
-    var diff = Date.parse(dDate) - Date.parse(date) + 500;
+    var diff = Date.parse(dDate) - Date.parse(date);
 
     var leave1 = diff % (24 * 3600 * 1000);             //计算天数后剩余的毫秒数  
     var hours = Math.floor(leave1 / (3600 * 1000));  //计算出小时数  
@@ -76,9 +76,10 @@ function enterTimeCheckLoop(callback) {
     var seconds = Math.round(leave3 / 1000);       //计算相差秒数  
     console.log("倒计时: " + hours + "小时 " + minutes + " 分钟" + seconds + " 秒");
 
-    if (diff < -900) {
+    if (diff < -15 * 1000) {
         console.log('时间过了！');
-    } else if (diff < 15 * 1000) {
+        return;
+    } else if (diff < 500) {
         callback && callback();
 
         console.log('时间到了！！！');
