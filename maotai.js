@@ -1,3 +1,7 @@
+const needReturnUrls = [
+    'www.taobao.com/markets/bx/wait_pc'
+];
+
 //检测状态
 function checkElementState(path, callback, index = 0) {
     var ele = document.querySelector(path);
@@ -130,6 +134,13 @@ function main() {
     else if (href.indexOf('buy.tmall.com') > -1) {
         //提交订单页面
         submitOrder();
+    }
+    else {
+        needReturnUrls.forEach(function(url) {
+            if (href.indexOf(url) > -1) {
+                win.location.href = 'https://cart.tmall.com/cart.htm';
+            }
+        });
     }
 }
 
