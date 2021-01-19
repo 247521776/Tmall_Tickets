@@ -5,7 +5,6 @@ const needReturnUrls = [
 //检测状态
 function checkElementState(path, callback, index = 0) {
     var ele = document.querySelector(path);
-    var win = window;
     if (ele) {
         callback && callback();
     }
@@ -15,7 +14,7 @@ function checkElementState(path, callback, index = 0) {
                 checkElementState(path, callback, index + 1);
             }
             else {
-                win.location.href = 'https://cart.tmall.com/cart.htm';
+                window.location.href = 'https://cart.tmall.com/cart.htm';
             }
         }, 200);
     }
@@ -59,7 +58,7 @@ var dDate = new Date();  //10点和20点开抢
 if (dDate.getHours() < 10) {
     dDate.setHours(9, 59, 59.2);
 } else {
-    dDate.setHours(19, 59, 59.9);
+    dDate.setHours(20, 00, 00);
 }
 
 //dDate.setSeconds( dDate.getSeconds() + 10 );
@@ -88,7 +87,7 @@ function enterTimeCheckLoop(callback) {
 
         console.log('时间到了！！！');
     } else {
-        setTimeout(function () { enterTimeCheckLoop(callback); }, 400);
+        setTimeout(function () { enterTimeCheckLoop(callback); }, 50);
     }
 }
 
@@ -124,7 +123,7 @@ function main() {
         }
     
         if (!isFindMaotai) {
-            setTimeout(main, 100);
+            setTimeout(main, 50);
             return;
         }
         //结算页面
@@ -138,7 +137,7 @@ function main() {
     else {
         needReturnUrls.forEach(function(url) {
             if (href.indexOf(url) > -1) {
-                win.location.href = 'https://cart.tmall.com/cart.htm';
+                window.location.href = 'https://cart.tmall.com/cart.htm';
             }
         });
     }
