@@ -1,5 +1,6 @@
 const needReturnUrls = [
-    'www.taobao.com/markets/bx/wait_pc'
+    'www.taobao.com/markets/bx/wait_pc',
+    'www.tmall.com/home'
 ];
 
 //检测状态
@@ -79,7 +80,7 @@ function enterTimeCheckLoop(callback) {
     var seconds = Math.round(leave3 / 1000);       //计算相差秒数  
     console.log("倒计时: " + hours + "小时 " + minutes + " 分钟" + seconds + " 秒");
 
-    if (diff < -15 * 1000) {
+    if (diff < -5 * 60 * 1000) {
         console.log('时间过了！');
         return;
     } else if (diff < 500) {
