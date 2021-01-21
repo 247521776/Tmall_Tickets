@@ -102,6 +102,7 @@ function main() {
     var href = window.location.href;
     if (href.indexOf('cart.tmall.com') > -1) {
         var isFindMaotai = false;
+        var checkBoxStatus = false;
         var aList = document.getElementsByTagName('a');
     
         for (var i = 0; i < aList.length; i++) {
@@ -120,10 +121,12 @@ function main() {
                     .childNodes.item(0);
 
                 checkBox.click && checkBox.click();
+
+                checkBoxStatus = checkBox.checked;
             }
         }
     
-        if (!isFindMaotai) {
+        if (!isFindMaotai || !checkBoxStatus) {
             setTimeout(main, 50);
             return;
         }
