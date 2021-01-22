@@ -22,9 +22,22 @@ function checkElementState(path, callback, index = 0) {
 }
 
 //结算
-function checkOut() {
+function checkOut(index = 0) {
     console.log('结算开始....');
     var btn = document.getElementById('J_Go');
+    var className = btn.className;
+
+    if (className.indexOf('submit-btn-disabled') > 0) {
+        setTimeout(function () {
+            if (index < 6) {
+                checkOut(index + 1);
+            }
+            else {
+                window.location.href = 'https://cart.tmall.com/cart.htm';
+            }
+        }, 200);
+        return;
+    }
 
     if (btn) {
         btn.click();
@@ -56,11 +69,7 @@ function submitOrder() {
 
 //目标时间
 var dDate = new Date();  //10点和20点开抢
-if (dDate.getHours() < 10) {
-    dDate.setHours(9, 59, 59.2);
-} else {
-    dDate.setHours(20, 00, 00);
-}
+dDate.setHours(20, 00, 00);
 
 //dDate.setSeconds( dDate.getSeconds() + 10 );
 
